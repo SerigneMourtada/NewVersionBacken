@@ -1,56 +1,97 @@
 package com.example.gestionvaccinationtestfirst.controller;
 
-import com.example.gestionvaccinationtestfirst.DTos.HistoriqueDeVaccinationDTO;
+import com.example.gestionvaccinationtestfirst.DTos.UtilisateurDTO;
 import com.example.gestionvaccinationtestfirst.DTos.VaccinationDTO;
 import com.example.gestionvaccinationtestfirst.Excepyion.*;
-import com.example.gestionvaccinationtestfirst.model.Vaccination;
-import com.example.gestionvaccinationtestfirst.service.VaccinationService.VaccinationServ;
+import com.example.gestionvaccinationtestfirst.service.VaccinationService.VaccinationService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("/Vaccination")
-public class VaccinationController {
+@RequestMapping("/vaccination")
+public class VaccinationController{
 
-    private VaccinationServ vaccinationServ;
+    private VaccinationService vaccinationService;
 
-        @GetMapping("/vaccinations")
-    public List<VaccinationDTO> getAllVaccination(){
-        return vaccinationServ.getAllVaccination();
-    }
 
-    @GetMapping("/vaccinations/{VaccinationId}")
-    public VaccinationDTO getVaccinationById(@PathVariable(name="vaccinationId") Long vaccinationId) throws VaccinationNotFound {
-        return vaccinationServ.getVaccinationById(vaccinationId);
-    }
-
-    /**@PostMapping("/vaccinations/{enfantId}/{vaccinId}/{carnetId}/{userId}")
-    public VaccinationDTO saveVaccination(@RequestBody VaccinationDTO vaccinationDTO,
-                                          @PathVariable(name="enfantId") Long enfantId,
-                                          @PathVariable(name="vaccinId") Long vaccinId,
-                                          @PathVariable(name="carnetId") Long carnetId,
-                                          @PathVariable(name="userId") Long userId) throws EnfantNotFoundException, VaccinNotFoundException, EntityNotFoundException, UtilisateurNotFoundException {
-        return vaccinationServ.saveVaccinatio(vaccinationDTO,enfantId,vaccinId,carnetId,userId);
-
-    }
-
-    @GetMapping("/historiqueVaccination/{enfantId}")
-    public List<HistoriqueDeVaccinationDTO> getHistoriqueVaccinationEnfantById(@PathVariable(name = "enfantId") Long enfantId){
-        return vaccinationServ.getHistoriqueVaccinationById(enfantId);
+    @Operation(summary = "Read List Vaccination", description = "Read Vaccination List")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Success"),
+            @ApiResponse(responseCode = "400", description = "Bad request"),
+            @ApiResponse(responseCode = "404", description = "Resource access does not exist"),
+            @ApiResponse(responseCode = "500", description = "Server Error")
+    })
+    @GetMapping
+    @ResponseStatus(HttpStatus.OK)
+    public List<VaccinationDTO> readVaccinations(){
+        return vaccinationService.readVaccinations();
     }
 
 
+    @Operation(summary = "Vaccination", description = "Create Vaccination")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Success"),
+            @ApiResponse(responseCode = "400", description = "Bad request"),
+            @ApiResponse(responseCode = "404", description = "Resource access does not exist"),
+            @ApiResponse(responseCode = "500", description = "Server Error")
+    })
+    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping(consumes = "application/json")
+    public VaccinationDTO saveVaccination(@Validated @RequestBody VaccinationDTO vaccinationDTO){
+        return vaccinationService.createVaccination(vaccinationDTO);
+    }
 
-    //Premiere end point de Test pour historique Vaccination
 
-    @GetMapping("/vaccinations/{enfantId}/historique")
-    public List<VaccinationDTO> getHistoryVaccinationEnfant(@PathVariable Long enfantId){
-            return vaccinationServ.getHistory(enfantId);
-    }**/
+    @Operation(summary = "Read Vaccination by Id", description = "Read an Vaccination By Id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Success"),
+            @ApiResponse(responseCode = "400", description = "Bad request"),
+            @ApiResponse(responseCode = "404", description = "Resource access does not exist"),
+            @ApiResponse(responseCode = "500", description = "Server Error")
+    })
+    @GetMapping("/{vaccinationId}")
+    @ResponseStatus(HttpStatus.OK)
+    public VaccinationDTO readVaccinationById(@Parameter(description = "Vaccination identifier", name = "vaccinationId", required = true) @PathVariable("vaccinationId") Long vaccinationId) {
+        return vaccinationService.getVaccinationById(vaccinationId);
+    }
+
+
+
+    @Operation(summary = "Delete Vaccination", description = "Delete Vaccination")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Success"),
+            @ApiResponse(responseCode = "400", description = "Bad request"),
+            @ApiResponse(responseCode = "404", description = "Resource access does not exist"),
+            @ApiResponse(responseCode = "500", description = "Server Error")
+    })
+    @DeleteMapping("/{vaccinationId}")
+    public void deleteVaccination(@PathVariable("vaccinationId") Long vaccinationId){
+       vaccinationService.deleteVaccination(vaccinationId);
+    }
+
+    @Operation(summary = "Update Vaccination", description = "Update Vaccination")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Success"),
+            @ApiResponse(responseCode = "400", description = "Bad request"),
+            @ApiResponse(responseCode = "404", description = "Resource access does not exist"),
+            @ApiResponse(responseCode = "500", description = "Server Error")
+    })
+    @PutMapping("/{vaccinationId}")
+    public VaccinationDTO updateVaccination(@Validated @RequestBody VaccinationDTO vaccinationDTO,
+                                            @PathVariable("vaccinationId") Long vaccinationId){
+        vaccinationDTO.setId(vaccinationId);
+        return vaccinationService.updateVaccination(vaccinationDTO);
+    }
+
 
 
 

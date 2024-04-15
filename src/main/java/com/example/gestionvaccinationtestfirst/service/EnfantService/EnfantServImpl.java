@@ -44,8 +44,11 @@ public class EnfantServImpl implements EnfantServ{
     }
 
     @Override
-    public EnfantDTO updateEnfant(EnfantDTO enfantDTO) {
-        return null;
+    public EnfantDTO updateEnfant(EnfantDTO enfantDTO){
+        Enfant enfant=enfantRepository.findById(enfantDTO.getId())
+                .orElseThrow(() -> new EntityNotFoundException(MessageFormat.format("Not found Enfant with id {0}",enfantDTO.getId())));
+
+        return enfantMapper.asEnfantDTO(enfantRepository.save(enfant));
     }
 
     @Override

@@ -1,12 +1,14 @@
 package com.example.gestionvaccinationtestfirst.service.CentreVaccinationService;
 import com.example.gestionvaccinationtestfirst.DTos.CentreDTO;
 import com.example.gestionvaccinationtestfirst.dtoMapper.centreMapper.CentreMapper;
+import com.example.gestionvaccinationtestfirst.model.Carnet;
 import com.example.gestionvaccinationtestfirst.model.Centre;
 import com.example.gestionvaccinationtestfirst.repository.CentreRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.text.MessageFormat;
 import java.util.List;
 
 @Service
@@ -36,16 +38,18 @@ public class CentreServiceImpl implements CentreService {
 
     @Override
     public void deleteCentre(Long id) {
-        centreRepository.deleteById(id);
-
+      Centre centre=centreRepository.findById(id)
+               .orElseThrow(() -> new EntityNotFoundException(MessageFormat.format("Not found Centre with id {0}",id)));
+        centreRepository.delete(centre);
     }
 
     @Override
-    public CentreDTO updateCentre(CentreDTO CentreDTO) {
+    public CentreDTO updateCentre(CentreDTO centreDTO) {
 
-        Centre centre = centreMapper.asCentre(CentreDTO);
-        Centre centre1 = centreRepository.save(centre);
-        return centreMapper.asCentreDTO(centre1);
+        Centre centre= centreRepository.findById(centreDTO.getId()).
+                orElseThrow(() -> new EntityNotFoundException(MessageFormat.format("Not found Centre with id {0}", centreDTO.getId())));
+
+        return centreMapper.asCentreDTO(centreRepository.save(centre));
     }
 }
 

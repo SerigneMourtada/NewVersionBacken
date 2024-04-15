@@ -65,7 +65,7 @@ public class CarnetServiceImpl implements CarnetService {
     @Override
     public CarnetDTO updateCarnet(CarnetDTO carnetDTO) {
         Carnet carnet= carnetRepository.findById(carnetDTO.getId()).
-                orElseThrow(() -> new EntityNotFoundException(MessageFormat.format("Not found kpi with id {0}", carnetDTO.getId())));
+                orElseThrow(() -> new EntityNotFoundException(MessageFormat.format("Not found Carnet with id {0}", carnetDTO.getId())));
 
         return carnetMapper.asCarnetDTO(carnetRepository.save(carnet));
     }
@@ -73,7 +73,7 @@ public class CarnetServiceImpl implements CarnetService {
     @Override
     public void deleteCarnet(Long CarnetDTOId) {
         Carnet carnet= carnetRepository.findById(CarnetDTOId).
-                orElseThrow(() -> new EntityNotFoundException(MessageFormat.format("Not found kpi with id {0}", CarnetDTOId)));
+                orElseThrow(() -> new EntityNotFoundException(MessageFormat.format("Not found Carnet with id {0}", CarnetDTOId)));
 
         carnetRepository.delete(carnet);
     }

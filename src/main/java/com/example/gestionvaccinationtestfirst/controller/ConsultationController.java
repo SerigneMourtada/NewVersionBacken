@@ -2,6 +2,7 @@ package com.example.gestionvaccinationtestfirst.controller;
 
 import com.example.gestionvaccinationtestfirst.DTos.CarnetDTO;
 import com.example.gestionvaccinationtestfirst.DTos.ConsultationDTO;
+import com.example.gestionvaccinationtestfirst.DTos.EnfantDTO;
 import com.example.gestionvaccinationtestfirst.service.ConsultationService.ConsultationService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -71,6 +72,22 @@ public class ConsultationController{
     @DeleteMapping("/{consultationId}")
     public void deleteCarnet(@PathVariable("consultationId") Long consultationId){
         consultationServ.deleteCarnet(consultationId);
+    }
+
+
+    @Operation(summary = "Update Consultation", description = "Update Consultation")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Success"),
+            @ApiResponse(responseCode = "400", description = "Bad request"),
+            @ApiResponse(responseCode = "404", description = "Resource access does not exist"),
+            @ApiResponse(responseCode = "500", description = "Server Error")
+    })
+    @PutMapping("/{consultationId}")
+    public ConsultationDTO updateConsultation(@Validated @RequestBody ConsultationDTO consultationDTO,
+                                  @PathVariable("consultationId") Long consultationId){
+        consultationDTO.setId(consultationId);
+
+        return consultationServ.updateConsultation(consultationDTO);
     }
 
 

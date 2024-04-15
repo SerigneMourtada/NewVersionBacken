@@ -86,4 +86,20 @@ public class VaccinController {
 
         vaccinServ.deleteVaccin(vaccinId);
     }
+
+
+    @Operation(summary = "Update Vaccin", description = "Update Vaccin")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Success"),
+            @ApiResponse(responseCode = "400", description = "Bad request"),
+            @ApiResponse(responseCode = "404", description = "Resource access does not exist"),
+            @ApiResponse(responseCode = "500", description = "Server Error")
+    })
+    @PutMapping("/{vaccinId}")
+    public VaccinDTO updateVaccin(@Validated @RequestBody VaccinDTO vaccinDTO,
+                                  @PathVariable("vaccinId") Long vaccinId){
+        vaccinDTO.setId(vaccinId);
+
+        return vaccinServ.updateVaccin(vaccinDTO);
+    }
 }

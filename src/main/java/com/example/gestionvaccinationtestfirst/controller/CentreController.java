@@ -2,6 +2,7 @@ package com.example.gestionvaccinationtestfirst.controller;
 
 import com.example.gestionvaccinationtestfirst.DTos.CarnetDTO;
 import com.example.gestionvaccinationtestfirst.DTos.CentreDTO;
+import com.example.gestionvaccinationtestfirst.DTos.EnfantDTO;
 import com.example.gestionvaccinationtestfirst.service.CentreVaccinationService.CentreService;
 import com.example.gestionvaccinationtestfirst.Excepyion.EntityNotFoundException;
 import io.swagger.v3.oas.annotations.Operation;
@@ -76,6 +77,22 @@ public class CentreController {
     public void deleteCarnet(@PathVariable("centreId") Long centreId){
 
         centreService.deleteCentre(centreId);
+    }
+
+
+    @Operation(summary = "Update Centre", description = "Update Centre")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Success"),
+            @ApiResponse(responseCode = "400", description = "Bad request"),
+            @ApiResponse(responseCode = "404", description = "Resource access does not exist"),
+            @ApiResponse(responseCode = "500", description = "Server Error")
+    })
+    @PutMapping("/{centreId}")
+    public CentreDTO updateCentre(@Validated @RequestBody CentreDTO centreDTO,
+                                  @PathVariable("centreId") Long centreId){
+        centreDTO.setId(centreId);
+
+        return centreService.updateCentre(centreDTO);
     }
 
 

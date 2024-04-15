@@ -1,5 +1,6 @@
 package com.example.gestionvaccinationtestfirst.controller;
 import com.example.gestionvaccinationtestfirst.DTos.CarnetDTO;
+import com.example.gestionvaccinationtestfirst.DTos.EnfantDTO;
 import com.example.gestionvaccinationtestfirst.service.carnetService.CarnetService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -33,6 +34,10 @@ public class CarnetController{
         return carnetService.readCarnets();
     }
 
+
+
+
+
     @Operation(summary = "Carnet", description = "Create carnet")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Success"),
@@ -45,6 +50,9 @@ public class CarnetController{
     public CarnetDTO saveCarnet(@Validated @RequestBody CarnetDTO carnetDTO){
         return carnetService.createCarnet(carnetDTO);
     }
+
+
+
 
     @Operation(summary = "Read Carnet by Id", description = "Read an kpi by identified")
     @ApiResponses(value = {
@@ -59,6 +67,8 @@ public class CarnetController{
         return carnetService.getCarnetById(carnetId);
     }
 
+
+
     @Operation(summary = "Delete Carnet", description = "Delete Carnet")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Success"),
@@ -71,4 +81,19 @@ public class CarnetController{
         carnetService.deleteCarnet(carnetId);
     }
 
+
+    @Operation(summary = "Update Carnet", description = "Update Carnet")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Success"),
+            @ApiResponse(responseCode = "400", description = "Bad request"),
+            @ApiResponse(responseCode = "404", description = "Resource access does not exist"),
+            @ApiResponse(responseCode = "500", description = "Server Error")
+    })
+    @PutMapping("/{carnetId}")
+    public CarnetDTO updateCarnet(@Validated @RequestBody CarnetDTO carnetDTO,
+                                  @PathVariable("carnetId") Long carnetId){
+        carnetDTO.setId(carnetId);
+
+        return carnetService.updateCarnet(carnetDTO);
+    }
 }

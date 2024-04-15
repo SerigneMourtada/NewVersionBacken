@@ -78,5 +78,20 @@ public class EnfantController {
         enfantServ.deleteEnfant(enfantId);
     }
 
+    @Operation(summary = "Update Enfant", description = "Update Enfant")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Success"),
+            @ApiResponse(responseCode = "400", description = "Bad request"),
+            @ApiResponse(responseCode = "404", description = "Resource access does not exist"),
+            @ApiResponse(responseCode = "500", description = "Server Error")
+    })
+    @PutMapping("/{enfantId}")
+    public EnfantDTO updateEnfant(@Validated @RequestBody EnfantDTO enfantDTO,
+                                  @PathVariable("enfantId") Long enfantId){
+        enfantDTO.setId(enfantId);
+
+        return enfantServ.updateEnfant(enfantDTO);
+    }
+
 
 }

@@ -1,4 +1,5 @@
 package com.example.gestionvaccinationtestfirst.controller;
+import com.example.gestionvaccinationtestfirst.DTos.EnfantDTO;
 import com.example.gestionvaccinationtestfirst.DTos.MaladieDTO;
 import com.example.gestionvaccinationtestfirst.service.MaladieService.MaladieService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -71,6 +72,22 @@ public class MaladieController {
     public void deleteMaladie(@PathVariable("maladieId") Long maladieId){
 
        maladieServ.deleteMaladie(maladieId);
+    }
+
+
+    @Operation(summary = "Update Maladie", description = "Update Maladie")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Success"),
+            @ApiResponse(responseCode = "400", description = "Bad request"),
+            @ApiResponse(responseCode = "404", description = "Resource access does not exist"),
+            @ApiResponse(responseCode = "500", description = "Server Error")
+    })
+    @PutMapping("/{maladieId}")
+    public MaladieDTO updateMaladie(@Validated @RequestBody MaladieDTO maladieDTO,
+                                  @PathVariable("maladieId") Long maladieId){
+        maladieDTO.setId(maladieId);
+
+        return maladieServ.updateMaladie(maladieDTO);
     }
 
 }

@@ -9,22 +9,15 @@ import java.util.Date;
 public class VaccinationDTO {
     private Long id;
 
-    private LocalDate dateVaccinationActuelle;
-
-    private LocalDate dateProchaineVaccination;
+    private LocalDate date;
 
     private Long nombreDeDose;
 
-    private Boolean estEffectuer;
-
-    private String siteDadministration;
-
-    private EnfantDTO enfantDTO;
-
     private VaccinDTO vaccinDTO;
 
-    private CarnetDTO carnetVaccinationDTO;
+    private UtilisateurDTO medcinDTO;
 
-    private UtilisateurDTO utilisateurDTO;
+    private CarnetDTO carnetDTO;
+
 
 }
