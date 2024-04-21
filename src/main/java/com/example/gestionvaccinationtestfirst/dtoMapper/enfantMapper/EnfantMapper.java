@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = "spring")
+@Mapper(componentModel = "spring")
 public interface EnfantMapper {
     Enfant asEnfant(EnfantDTO enfantDTO);
     List<Enfant> asEnfants(List<EnfantDTO> enfantDTOS);

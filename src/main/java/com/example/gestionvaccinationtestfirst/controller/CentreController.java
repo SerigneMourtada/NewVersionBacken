@@ -19,6 +19,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/centre")
 @AllArgsConstructor
+@CrossOrigin("*")
 
 public class CentreController {
     private CentreService centreService;

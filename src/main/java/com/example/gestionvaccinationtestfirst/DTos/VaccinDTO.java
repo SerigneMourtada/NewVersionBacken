@@ -3,15 +3,12 @@ package com.example.gestionvaccinationtestfirst.DTos;
 import lombok.Data;
 
 @Data
-public class VaccinDTO {
+public class VaccinDTO{
     private Long id;
 
     private String nomVaccin;
 
-    private String numeroDeLot;
+    private Long numeroDeLot;
 
     private String effetSecondaires;
-
-
-
 }

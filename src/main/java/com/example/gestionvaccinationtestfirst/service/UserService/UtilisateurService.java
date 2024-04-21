@@ -13,7 +13,7 @@ public interface UtilisateurService {
 
     UtilisateurDTO getUtilisateurById(Long userId);
 
-    UtilisateurDTO createUtilisateur(UtilisateurDTO utilisateurDTO);
+    UtilisateurDTO createUser(UtilisateurDTO utilisateurDTO);
 
     UtilisateurDTO updateUtilisateur(UtilisateurDTO utilisateurDTO);
 

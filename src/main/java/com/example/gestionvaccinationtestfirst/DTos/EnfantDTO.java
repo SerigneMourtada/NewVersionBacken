@@ -19,6 +19,9 @@ public class EnfantDTO {
 
     private LocalDate dateDeNaissance;
 
+    private UtilisateurDTO parentDTO;
+
+
 
 
 

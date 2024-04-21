@@ -2,7 +2,6 @@ package com.example.gestionvaccinationtestfirst.controller;
 
 import com.example.gestionvaccinationtestfirst.DTos.EnfantDTO;
 import com.example.gestionvaccinationtestfirst.DTos.VaccinDTO;
-import com.example.gestionvaccinationtestfirst.Excepyion.VaccinNotFoundException;
 import com.example.gestionvaccinationtestfirst.service.VaccinService.VaccinServ;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -18,6 +17,7 @@ import java.util.List;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/vaccin")
+@CrossOrigin("*")
 public class VaccinController {
     private VaccinServ vaccinServ;
 

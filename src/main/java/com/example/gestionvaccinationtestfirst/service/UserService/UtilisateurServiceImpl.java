@@ -1,12 +1,9 @@
 package com.example.gestionvaccinationtestfirst.service.UserService;
 
-import com.example.gestionvaccinationtestfirst.DTos.CentreDTO;
 import com.example.gestionvaccinationtestfirst.DTos.UtilisateurDTO;
-import com.example.gestionvaccinationtestfirst.Excepyion.UtilisateurNotFoundException;
 import com.example.gestionvaccinationtestfirst.dtoMapper.Utilisateur.UtilisateurMapper;
+import com.example.gestionvaccinationtestfirst.dtoMapper.Utilisateur.UtilisateurMapperFirst;
 import com.example.gestionvaccinationtestfirst.dtoMapper.centreMapper.CentreMapper;
-import com.example.gestionvaccinationtestfirst.model.Carnet;
-import com.example.gestionvaccinationtestfirst.model.Centre;
 import com.example.gestionvaccinationtestfirst.model.Utilisateur;
 import com.example.gestionvaccinationtestfirst.repository.CentreRepository;
 import com.example.gestionvaccinationtestfirst.repository.UtilisateurRepository;
@@ -30,13 +27,17 @@ public class UtilisateurServiceImpl implements UtilisateurService{
 
     private CentreRepository centreRepository;
 
-    private UtilisateurMapper utilisateurMapper;
+    //private UtilisateurMapper utilisateurMapper;
+    private UtilisateurMapperFirst utilisateurMapperFirst;
 
 
     @Override
     public List<UtilisateurDTO> readUtilisateurs(){
        List<Utilisateur> utilisateurs= utilisateurRepository.findAll();
-        return utilisateurMapper.asUtilisateurDTOs(utilisateurs);
+       List<UtilisateurDTO> utilisateurDTOList=utilisateurs.stream().
+        map(utilisateur -> utilisateurMapperFirst.asUtilisateurDTO(utilisateur))
+               .collect(Collectors.toList());
+        return utilisateurDTOList;
     }
 
     @Override
@@ -44,14 +45,14 @@ public class UtilisateurServiceImpl implements UtilisateurService{
         Utilisateur user=utilisateurRepository.findById(userId)
                 .orElseThrow((() -> new EntityNotFoundException(MessageFormat.format("Not found Utilisateur with id {0}", userId))));
 
-        return utilisateurMapper.asUtilisateurDTO(user);
+        return utilisateurMapperFirst.asUtilisateurDTO(user);
     }
 
     @Override
-    public UtilisateurDTO createUtilisateur(UtilisateurDTO utilisateurDTO){
-       Utilisateur utilisateur= utilisateurMapper.asUtilisateur(utilisateurDTO);
+    public UtilisateurDTO createUser(UtilisateurDTO utilisateurDTO){
+       Utilisateur utilisateur= utilisateurMapperFirst.asUtilisateur(utilisateurDTO);
        Utilisateur utilisateur1=utilisateurRepository.save(utilisateur);
-        return utilisateurMapper.asUtilisateurDTO(utilisateur1);
+        return utilisateurMapperFirst.asUtilisateurDTO(utilisateur1);
     }
 
     @Override
@@ -59,7 +60,7 @@ public class UtilisateurServiceImpl implements UtilisateurService{
         Utilisateur utilisateur=utilisateurRepository.findById(utilisateurDTO.getId()).
                 orElseThrow(() -> new EntityNotFoundException(MessageFormat.format("Not found Utilisateur with id {0}", utilisateurDTO.getId())));
 
-        return utilisateurMapper.asUtilisateurDTO(utilisateurRepository.save(utilisateur));
+        return utilisateurMapperFirst.asUtilisateurDTO(utilisateurRepository.save(utilisateur));
 
     }
 

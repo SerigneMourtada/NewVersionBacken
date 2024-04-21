@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = "spring")
+@Mapper( componentModel = "spring")
 
 public interface ConsultationMapper {
     ConsultationDTO asConsultationDTO(Consultation consultation);

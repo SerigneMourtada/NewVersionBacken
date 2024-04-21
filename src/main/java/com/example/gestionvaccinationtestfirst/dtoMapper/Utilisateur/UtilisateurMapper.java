@@ -7,7 +7,7 @@ import org.mapstruct.ReportingPolicy;
 
 import java.util.List;
 
-@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = "spring")
+@Mapper(componentModel = "spring")
 public interface UtilisateurMapper {
     Utilisateur asUtilisateur(UtilisateurDTO utilisateurDTO);
 

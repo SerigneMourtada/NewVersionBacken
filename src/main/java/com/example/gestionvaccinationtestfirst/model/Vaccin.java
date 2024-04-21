@@ -12,16 +12,16 @@ import java.util.List;
 
 @Entity
 @Data @AllArgsConstructor @NoArgsConstructor
-@FieldDefaults(level = AccessLevel.PRIVATE)
+
 public class Vaccin {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    private Long id;
 
-    String nomVaccin;
+    private String nomVaccin;
 
-    Long numeroDeLot;
+    private Long numeroDeLot;
 
-    String effetSecondaires;
+    private String effetSecondaires;
 
     @ManyToMany(fetch = FetchType.EAGER)
     List<Maladie> maladies=new ArrayList<>();

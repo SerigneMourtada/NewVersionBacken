@@ -9,7 +9,7 @@ import org.mapstruct.Mapper;
 import org.springframework.stereotype.Service;
 
 
-@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = "spring")
+@Mapper(componentModel = "spring")
 public interface CarnetMapper {
 
     Carnet asCarnet(CarnetDTO CarnetDTO);

@@ -1,4 +1,5 @@
 package com.example.gestionvaccinationtestfirst.controller;
+import com.example.gestionvaccinationtestfirst.DTos.CarnetDTO;
 import com.example.gestionvaccinationtestfirst.DTos.EnfantDTO;
 import com.example.gestionvaccinationtestfirst.service.EnfantService.EnfantServ;
 import io.swagger.v3.oas.annotations.Operation;
@@ -15,6 +16,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/enfant")
 @AllArgsConstructor
+@CrossOrigin("*")
 
 public class EnfantController {
     private EnfantServ enfantServ;
@@ -92,6 +94,21 @@ public class EnfantController {
 
         return enfantServ.updateEnfant(enfantDTO);
     }
+
+//    @Operation(summary = "Enfant", description = "Create Enfant")
+//    @ApiResponses(value = {
+//            @ApiResponse(responseCode = "201", description = "Success"),
+//            @ApiResponse(responseCode = "400", description = "Bad request"),
+//            @ApiResponse(responseCode = "404", description = "Resource access does not exist"),
+//            @ApiResponse(responseCode = "500", description = "Server Error")
+//    })
+//    @ResponseStatus(HttpStatus.CREATED)
+//    // @PostMapping(consumes = "application/json")
+//    @PostMapping("/{parentId}")
+//    public EnfantDTO saveCarnet(@Validated @RequestBody EnfantDTO enfantDTO,
+//                                @PathVariable("parentId") Long parentId){
+//        return enfantServ.createEnfant(enfantDTO,parentId);
+//    }
 
 
 }

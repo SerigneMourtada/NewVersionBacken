@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = "spring")
+@Mapper( componentModel = "spring")
 public interface CentreMapper {
     Centre asCentre(CentreDTO centreDTO);
     List<Centre> asCentres(List<CentreDTO> centreDTOs);

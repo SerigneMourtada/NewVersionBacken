@@ -16,6 +16,7 @@ import java.util.List;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/maladie")
+@CrossOrigin("*")
 public class MaladieController {
     private MaladieService maladieServ;
 

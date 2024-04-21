@@ -37,7 +37,10 @@ public class Enfant {
 
 
    @OneToOne(mappedBy = "enfant",cascade = CascadeType.ALL, orphanRemoval = true)
-    Carnet carnet;
+   Carnet carnet;
+
+   @ManyToOne
+    Utilisateur parent;
 
 
 

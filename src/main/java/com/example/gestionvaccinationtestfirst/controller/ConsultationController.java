@@ -18,6 +18,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/consultation")
 @AllArgsConstructor
+@CrossOrigin("*")
 public class ConsultationController{
     private ConsultationService consultationServ;
 

@@ -19,6 +19,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/utilisateur")
 @AllArgsConstructor
+@CrossOrigin("*")
 
 public class UtilisateurController {
     private UtilisateurService utilisateurService;
@@ -46,8 +47,8 @@ public class UtilisateurController {
     })
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping(consumes = "application/json")
-    public UtilisateurDTO saveUtilisateur(@Validated @RequestBody UtilisateurDTO utilisateurDTO){
-        return utilisateurService.createUtilisateur(utilisateurDTO);
+    public UtilisateurDTO createUser(@Validated @RequestBody UtilisateurDTO utilisateurDTO){
+        return utilisateurService.createUser(utilisateurDTO);
     }
 
     @Operation(summary = "Read Utilisateur by Id", description = "Read an Utilisateur by identified")
